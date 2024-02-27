@@ -7,7 +7,7 @@ export default function OrdersPage(){
     useEffect(() => {
         axios.get('/api/orders').then(response => {
             setOrders(response.data);
-        })
+        });
     }, []);
     return(
         <Layout>
@@ -23,10 +23,10 @@ export default function OrdersPage(){
                 </thead>
                 <tbody>
                     {orders.length > 0 && orders.map(order => (
-                        <tr>
+                        <tr key={order._id}>
                             <td>{(new Date(order.createdAt)).toLocaleString()}</td>
                             <td className={order.paid ? 'text-green-600' : 'text-red-600'}>
-                                {order.paid ? 'YES': 'NO'}
+                                {order.paid ? 'YES' : 'NO'}
                             </td>
                             <td>
                                 {order.name} {order.email} <br />
@@ -36,7 +36,7 @@ export default function OrdersPage(){
                             <td>
                                 {order.line_items.map(l => (
                                     <>
-                                        {l.price_data.product_data.name} x {l.quantity} <br />
+                                        {l.price_data?.product_data.name} x {l.quantity} <br />
                                     </>
                                 ))}
                             </td>
@@ -46,5 +46,4 @@ export default function OrdersPage(){
             </table>
         </Layout>
     )
-
 }
