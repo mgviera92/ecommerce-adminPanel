@@ -6,7 +6,6 @@ import clientPromise from '../../../mongodb-adapter/mongodb'
 const adminEmails = ['gabiviera92@gmail.com'];
 
 export const authOptions = {
-  secret: process.env.SECRET,
   providers: [
     // OAuth authentication providers...
     GoogleProvider({
@@ -24,6 +23,7 @@ export const authOptions = {
       }
     },
   },
+  secret: process.env.SECRET,
 };
 
 export default NextAuth(authOptions);
